@@ -1,5 +1,5 @@
-
-<!DOCTYPE html>
+ module.exports = `
+  <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -20,3 +20,4 @@
   </ol>
 </body>
 </html>
+`;

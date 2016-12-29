@@ -1,13 +1,23 @@
 const net = require('net');
-const fs = require('fs');
+const index = require('./HTML-files/index');
 
-var server = net.createServer((client) => {
+console.log(index);
+let server = net.createServer((client) => {
   //recieves client from data
   client.on('data', (data) =>{
-    fs.readFile('./index.html', (err, data) => {
-      if (err) throw err;
-    console.log(data.toString());
-    });
+    var wordArr = data.toString().split(' ');
+    for (var i = 0; i < wordArr.length; i++){
+      if (wordArr[i] === "GET" && wordArr[i + 1] === '/' || wordArr[i + 1] === "/index.html"){
+        // process.stdout.write(data);
+        client.write(`HTTP/1.1 200 OK
+          Date: ${new Date()};
+          Content-Type: text/html; charset=utf-8
+          Content-Length: ${index.length}
+          Connection: keep-alive\n\n`);
+        client.write(index);
+        client.end();
+      }
+    }
   });
 
   client.on('end', () => {
