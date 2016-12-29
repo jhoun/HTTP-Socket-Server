@@ -4,12 +4,12 @@ const PORT = 8080;
 const client = net.connect({port: PORT}, () => {
 
   process.stdin.on('data', (data) => {
-    //do something
+    client.write(data.toString());
   })
     console.log('connected to the server!');
 });
 
 
 client.on('data', (data) => {
-  // process.stdout.on
+  process.stdout.write(data.toString());
 });
