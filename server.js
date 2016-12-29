@@ -3,6 +3,7 @@ const index = require('./HTML-files/index');
 const hydrogen = require('./HTML-files/hydrogen');
 const helium = require('./HTML-files/helium');
 const error404 = require('./HTML-files/404');
+const css = require('./HTML-files/css/style')
 
 
 let server = net.createServer((client) => {
@@ -25,7 +26,7 @@ let server = net.createServer((client) => {
         return client.end();
 
       //finds 'hydrogen'
-      } else if(wordArr[i] === "GET" && wordArr[i + 1] === "/index/hydrogen.html"){
+      } else if(wordArr[i] === "GET" && wordArr[i + 1] === "/hydrogen.html"){
         client.write(`HTTP/1.1 200 OK
           Date: ${new Date()};
           Content-Type: text/html; charset=utf-8
@@ -35,7 +36,7 @@ let server = net.createServer((client) => {
         return client.end();
 
         //finds 'helium'
-      } else if(wordArr[i] === "GET" && wordArr[i + 1] === "/index/helium.html") {
+      } else if(wordArr[i] === "GET" && wordArr[i + 1] === "/helium.html") {
         client.write(`HTTP/1.1 200 OK
           Date: ${new Date()};
           Content-Type: text/html; charset=utf-8
@@ -43,8 +44,17 @@ let server = net.createServer((client) => {
           Connection: keep-alive\n\n`);
         client.write(helium);
         return client.end();
+      } else if(wordArr[i] === "GET" && wordArr[i + 1] === "/css/styles.css"){
+        client.write(`HTTP/1.1 200 OK
+          Date: ${new Date()};
+          Content-Type: text/css; charset=utf-8
+          Content-Length: ${css.length}
+          Connection: keep-alive\n\n`);
+        client.write(css);
+        return client.end();
+
       } else {
-        //returns
+        //returns error
         client.write(`HTTP/1.1 200 OK
           Date: ${new Date()};
           Content-Type: text/html; charset=utf-8
