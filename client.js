@@ -13,14 +13,15 @@ if (host === 'localhost'){
 }
 
 const client = net.connect(port, host, () => {
+  console.log(hostPath);
 
-    var header = `GET /${hostPath} HTTP/1.1
-Date: ${new Date}
-Host: ${host}
-User-Agent: jay\r\n\r\n`;
 
   process.stdin.on( EVENT_DATA, () => {
-    client.write(header);
+    client.write(`GET /${hostPath} HTTP/1.1
+Date: ${new Date}
+Host: ${host}
+User-Agent: jay\r\n\r\n`);
+
   })
     console.log('connected to the server!');
 });
