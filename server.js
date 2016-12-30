@@ -13,8 +13,8 @@ let date = new Date();
 
 let server = net.createServer((client) => {
   //recieves client from data
-  client.on( EVENT_DATA, (data) =>{
-    let wordArr = data.toString().split(' ');
+  client.on( EVENT_DATA, (clientRequestData) =>{
+    let wordArr = clientRequestData.toString().split(' ');
     console.log(wordArr);
 
 
@@ -47,6 +47,7 @@ let server = net.createServer((client) => {
           Connection: keep-alive\n\n`);
         client.write(helium);
 
+        //finds 'css'
       } else if(wordArr[0] === "GET" && wordArr[1] === "/css/styles.css"){
         client.write(`HTTP/1.1 200 OK
           Date: ${date};
@@ -55,7 +56,7 @@ let server = net.createServer((client) => {
           Connection: keep-alive\n\n`);
         client.write(css);
 
-
+        //throws 404 if path not found
       } else {
         console.log(wordArr[0], wordArr[1]);
         //returns error
