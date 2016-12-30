@@ -5,86 +5,86 @@ const helium = require('./HTML-files/helium');
 const error404 = require('./HTML-files/404');
 const css = require('./HTML-files/css/style')
 
+const PORT = 8080;
+const EVENT_DATA = 'data';
+const EVENT_ERROR = 'error';
+
+let date = new Date();
 
 let server = net.createServer((client) => {
   //recieves client from data
-  client.on('data', (data) =>{
-    var wordArr = data.toString().split(' ');
-
+  client.on( EVENT_DATA, (data) =>{
+    console.log(data.toString());
+    var wordArr = data.toString().split('\n');
+    console.log(wordArr);
 
     //finds '/' and 'index.html'
-    for (var i = 0; i < wordArr.length; i++){
-      if (wordArr[i] === "GET" && wordArr[i + 1] === '/' || wordArr[i + 1] === "/index.html"){
-        // process.stdout.write(data);
+      if (wordArr[0] === "GET" && wordArr[1] === '/' || wordArr[1] === "/index.html"){
         client.write(`HTTP/1.1 200 OK
-          Date: ${new Date()};
+          Date: ${date};
           Content-Type: text/html; charset=utf-8
           Content-Length: ${index.length}
           Connection: keep-alive\n\n`);
         client.write(index);
-        client.end();
-        return client.end();
+
 
       //finds 'hydrogen'
-      } else if(wordArr[i] === "GET" && wordArr[i + 1] === "/hydrogen.html"){
+      } else if(wordArr[0] === "GET" && wordArr[1] === "/hydrogen.html"){
         client.write(`HTTP/1.1 200 OK
-          Date: ${new Date()};
+          Date: ${date};
           Content-Type: text/html; charset=utf-8
           Content-Length: ${hydrogen.length}
           Connection: keep-alive\n\n`);
         client.write(hydrogen);
-        return client.end();
+
 
         //finds 'helium'
-      } else if(wordArr[i] === "GET" && wordArr[i + 1] === "/helium.html") {
+      } else if(wordArr[0] === "GET" && wordArr[1] === "/helium.html") {
         client.write(`HTTP/1.1 200 OK
-          Date: ${new Date()};
+          Date: ${date};
           Content-Type: text/html; charset=utf-8
           Content-Length: ${helium.length}
           Connection: keep-alive\n\n`);
         client.write(helium);
-        return client.end();
-      } else if(wordArr[i] === "GET" && wordArr[i + 1] === "/css/styles.css"){
+
+      } else if(wordArr[0] === "GET" && wordArr[1] === "/css/styles.css"){
         client.write(`HTTP/1.1 200 OK
-          Date: ${new Date()};
+          Date: ${date};
           Content-Type: text/css; charset=utf-8
           Content-Length: ${css.length}
           Connection: keep-alive\n\n`);
         client.write(css);
-        return client.end();
+
 
       } else {
+        console.log(wordArr[0], wordArr[1]);
         //returns error
-        client.write(`HTTP/1.1 200 OK
-          Date: ${new Date()};
+        client.write(`HTTP/1.1 404 OK
+          Date: ${date};
           Content-Type: text/html; charset=utf-8
           Content-Length: ${error404.length}
           Connection: keep-alive\n\n`);
         client.write(error404);
-        return client.end();
+
       }
-    }
 
-  });
-
-  client.on('end', () => {
-    console.log('client has been disconnected');
+    client.end();
   });
 
   //client error
-  client.on('error', (err) => {
+  client.on( EVENT_ERROR, (err) => {
     throw err;
   });
 })
 
 
 //server error
-server.on('error', (err) => {
+server.on( EVENT_ERROR, (err) => {
   throw err;
 })
 
 
 // grab a random port.
-server.listen(8080,() => {
+server.listen(PORT,() => {
   console.log('opened server on', server.address());
 });
