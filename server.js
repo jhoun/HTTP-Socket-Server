@@ -19,55 +19,55 @@ let server = net.createServer((client) => {
 
 
     //finds '/' and 'index.html'
-      if (wordArr[0] === "GET" && wordArr[1] === '/' || wordArr[1] === "/index.html"){
-        client.write(`HTTP/1.1 200 OK
-          Date: ${date};
-          Content-Type: text/html; charset=utf-8
-          Content-Length: ${index.length}
-          Connection: keep-alive\n\n`);
-        client.write(index);
+    if (wordArr[0] === "GET" && wordArr[1] === '/' || wordArr[1] === "/index.html"){
+      client.write(`HTTP/1.1 200 OK
+        Date: ${date};
+        Content-Type: text/html; charset=utf-8
+        Content-Length: ${index.length}
+        Connection: keep-alive\n\n`);
+      client.write(index);
 
 
-      //finds 'hydrogen'
-      } else if(wordArr[0] === "GET" && wordArr[1] === "/hydrogen.html"){
-        client.write(`HTTP/1.1 200 OK
-          Date: ${date};
-          Content-Type: text/html; charset=utf-8
-          Content-Length: ${hydrogen.length}
-          Connection: keep-alive\n\n`);
-        client.write(hydrogen);
+    //finds 'hydrogen'
+    } else if(wordArr[0] === "GET" && wordArr[1] === "/hydrogen.html"){
+      client.write(`HTTP/1.1 200 OK
+        Date: ${date};
+        Content-Type: text/html; charset=utf-8
+        Content-Length: ${hydrogen.length}
+        Connection: keep-alive\n\n`);
+      client.write(hydrogen);
 
 
-        //finds 'helium'
-      } else if(wordArr[0] === "GET" && wordArr[1] === "/helium.html") {
-        client.write(`HTTP/1.1 200 OK
-          Date: ${date};
-          Content-Type: text/html; charset=utf-8
-          Content-Length: ${helium.length}
-          Connection: keep-alive\n\n`);
-        client.write(helium);
+      //finds 'helium'
+    } else if(wordArr[0] === "GET" && wordArr[1] === "/helium.html") {
+      client.write(`HTTP/1.1 200 OK
+        Date: ${date};
+        Content-Type: text/html; charset=utf-8
+        Content-Length: ${helium.length}
+        Connection: keep-alive\n\n`);
+      client.write(helium);
 
-        //finds 'css'
-      } else if(wordArr[0] === "GET" && wordArr[1] === "/css/styles.css"){
-        client.write(`HTTP/1.1 200 OK
-          Date: ${date};
-          Content-Type: text/css; charset=utf-8
-          Content-Length: ${css.length}
-          Connection: keep-alive\n\n`);
-        client.write(css);
+      //finds 'css'
+    } else if(wordArr[0] === "GET" && wordArr[1] === "/css/styles.css"){
+      client.write(`HTTP/1.1 200 OK
+        Date: ${date};
+        Content-Type: text/css; charset=utf-8
+        Content-Length: ${css.length}
+        Connection: keep-alive\n\n`);
+      client.write(css);
 
-        //throws 404 if path not found
-      } else {
-        console.log(wordArr[0], wordArr[1]);
-        //returns error
-        client.write(`HTTP/1.1 301
-          Date: ${date};
-          Content-Type: text/html; charset=utf-8
-          Content-Length: ${error404.length}
-          Connection: keep-alive\n\n`);
-        client.write(error404);
+      //throws 404 if path not found
+    } else {
+      console.log(wordArr[0], wordArr[1]);
+      //returns error
+      client.write(`HTTP/1.1 301
+        Date: ${date};
+        Content-Type: text/html; charset=utf-8
+        Content-Length: ${error404.length}
+        Connection: keep-alive\n\n`);
+      client.write(error404);
 
-      }
+    }
 
     client.end();
   });

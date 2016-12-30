@@ -14,15 +14,16 @@ if (HOST === 'localhost'){
 }
 
 const client = net.connect(port, HOST, () => {
+
   //creates header to send to server
   process.stdin.on( EVENT_DATA, () => {
-    client.write(`GET /${HOST_PATH} HTTP/1.1
+  client.write(`GET /${HOST_PATH} HTTP/1.1
 Date: ${new Date}
 Host: ${HOST}
 User-Agent: jay\r\n\r\n`);
-
   })
-    console.log('connected to the server');
+
+  console.log('connected to the server');
 });
 
 //returned header and body from server
