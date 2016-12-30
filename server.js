@@ -14,7 +14,7 @@ let date = new Date();
 let server = net.createServer((client) => {
   //recieves client from data
   client.on( EVENT_DATA, (data) =>{
-    var wordArr = data.toString().split(' ');
+    let wordArr = data.toString().split(' ');
     console.log(wordArr);
 
 
