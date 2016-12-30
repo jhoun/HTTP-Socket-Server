@@ -14,9 +14,9 @@ let date = new Date();
 let server = net.createServer((client) => {
   //recieves client from data
   client.on( EVENT_DATA, (data) =>{
-    console.log(data.toString());
-    var wordArr = data.toString().split('\n');
+    var wordArr = data.toString().split(' ');
     console.log(wordArr);
+
 
     //finds '/' and 'index.html'
       if (wordArr[0] === "GET" && wordArr[1] === '/' || wordArr[1] === "/index.html"){

@@ -1,17 +1,25 @@
 const net = require('net');
 
-const PORT = 8080;
 const EVENT_DATA = 'data';
+const host = process.argv[2];
+const hostPath = process.argv[2].split('/')[1];
+let port;
 
+console.log(hostPath);
+if (host !== 'localhost'){
+  port = 80;
+} else {
+  port = 8080;
+}
 
-
-const client = net.connect({port: PORT}, () => {
+const client = net.connect(port, host, () => {
 
 
   process.stdin.on( EVENT_DATA, () => {
-    client.write(`GET /index.html HTTP/1.1
-      Date: ${new Date}
-      User-Agent: jay/\n\n`);
+    client.write(`GET / HTTP/1.1
+Date: ${new Date}
+Host: localhost
+User-Agent: jay\r\n\r\n`);
 
   })
     console.log('connected to the server!');
