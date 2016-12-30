@@ -3,7 +3,6 @@ const net = require('net');
 const EVENT_DATA = 'data';
 const host = process.argv[2].split('/')[0];
 const hostPath = process.argv[2].split('/')[1];
-console.log(host);
 let port;
 
 // console.log(hostPath);
@@ -14,10 +13,10 @@ if (host === 'localhost'){
 }
 
 const client = net.connect(port, host, () => {
-
+  console.log(hostPath);
 
   process.stdin.on( EVENT_DATA, () => {
-    client.write(`GET /hostPath HTTP/1.1
+    client.write(`GET /${hostPath} HTTP/1.1
 Date: ${new Date}
 Host: localhost
 User-Agent: jay\r\n\r\n`);

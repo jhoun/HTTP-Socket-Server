@@ -59,7 +59,7 @@ let server = net.createServer((client) => {
       } else {
         console.log(wordArr[0], wordArr[1]);
         //returns error
-        client.write(`HTTP/1.1 404 OK
+        client.write(`HTTP/1.1 301
           Date: ${date};
           Content-Type: text/html; charset=utf-8
           Content-Length: ${error404.length}
